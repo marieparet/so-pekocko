@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-const mongodbErrorHandler = require('mongoose-mongodb-errors');
-
 const sauceSchema = mongoose.Schema({
   userId: { type: String, required: true },
   name: { type: String, required: true },
@@ -40,7 +38,5 @@ sauceSchema.methods.likeOrDislike = function(like, currentUserId) {
         }
     }
   }
-
-sauceSchema.plugin(mongodbErrorHandler);
 
 module.exports = mongoose.model('Sauce', sauceSchema);
