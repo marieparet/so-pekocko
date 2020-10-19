@@ -1,10 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const app = express();
 
 const path = require('path');
+
+require('dotenv').config();
 
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user')
@@ -13,7 +16,7 @@ const Sauce = require('./models/Sauce');
 
 mongoose
   .connect(
-    "mongodb+srv://marieparet:Chipie33--@cluster0.uuupm.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    `mongodb+srv://${process.env.DB_ADMIN_USERNAME}:${process.env.DB_ADMIN_PASSWORD}@cluster0.uuupm.mongodb.net/<dbname>?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
@@ -27,6 +30,10 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+
+app.use(mongoSanitize({
+  replaceWith: '_'
+}))
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

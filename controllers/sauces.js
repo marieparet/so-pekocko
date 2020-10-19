@@ -50,7 +50,22 @@ exports.deleteSauce = (req, res, next) => {
 
 //on récupère toutes les sauces existantes
 exports.getAllSauces = (req, res, next) => {
-  Sauce.find()
+ Sauce.find()
     .then(sauces => res.status(200).json(sauces))
     .catch(error => res.status(400).json({ error }));
+};
+
+//on like ou dislike une sauce existante
+exports.likeOrDislikeSauce = (req, res, next) => {
+  Sauce.findOne({ _id: req.params.id })
+    .then(sauce => {
+      sauce.likeOrDislike(req.body.like, req.user._id)
+      sauce.save()
+      .then(() => res.status(201).json({message: 'Avis enregistrée !'}))
+
+      console.log(sauce.likes)
+      console.log(sauce.usersLiked)
+      console.log(sauce.dislikes)
+      console.log(sauce.usersDisliked)
+    });
 };

@@ -4,7 +4,11 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 exports.signup = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10)
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{8,}$/; 
+  const password = req.body.password;
+
+  if (password.match(regex)) {
+  bcrypt.hash(password, 10)
     .then(hash => {
       const user = new User({
         email: req.body.email,
@@ -15,6 +19,9 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
     })
     .catch(error => res.status(500).json({ error }));
+  } else {
+    throw new Error("Le mot de passe n'est pas assez sécurisé");
+  }
 };
 
 exports.login = (req, res, next) => {
