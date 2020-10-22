@@ -14,6 +14,7 @@ const userRoutes = require('./routes/user')
 
 const Sauce = require('./models/Sauce');
 
+//connexion à la base de données MongoDB
 mongoose
   .connect(
     `mongodb+srv://${process.env.DB_ADMIN_USERNAME}:${process.env.DB_ADMIN_PASSWORD}@cluster0.uuupm.mongodb.net/<dbname>?retryWrites=true&w=majority`,
@@ -35,6 +36,7 @@ app.use(mongoSanitize({
   replaceWith: '_'
 }))
 
+//rendre les images accessibles publiquement pour toutes les requêtes vers la route /images
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/sauces', saucesRoutes);

@@ -2,7 +2,6 @@ const fs = require('fs');
 
 const Sauce = require('../models/Sauce');
 
-//on enregistre une nouvelle sauce
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
@@ -15,14 +14,12 @@ exports.createSauce = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
-//on récupère une sauce 
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => res.status(200).json(sauce))
     .catch(error => res.status(404).json({ error }))
 };
 
-//on modifie une sauce existante
 exports.modifySauce = (req, res, next) => {
   const sauceObject = req.file ?
     {
@@ -34,7 +31,6 @@ exports.modifySauce = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
-//on supprime une sauce
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
   .then(sauce => {
@@ -48,14 +44,12 @@ exports.deleteSauce = (req, res, next) => {
   .catch(error => res.status(500).json({ error }));
 };
 
-//on récupère toutes les sauces existantes
 exports.getAllSauces = (req, res, next) => {
  Sauce.find()
     .then(sauces => res.status(200).json(sauces))
     .catch(error => res.status(400).json({ error }));
 };
 
-//on like ou dislike une sauce existante
 exports.likeOrDislikeSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
@@ -63,9 +57,5 @@ exports.likeOrDislikeSauce = (req, res, next) => {
       sauce.save()
       .then(() => res.status(201).json({message: 'Avis enregistrée !'}))
       .catch(error => res.status(400).json({ error }));
-      console.log(sauce.likes)
-      console.log(sauce.usersLiked)
-      console.log(sauce.dislikes)
-      console.log(sauce.usersDisliked)
     });
 };

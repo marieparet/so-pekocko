@@ -5,6 +5,7 @@ const cryptojs = require('crypto-js');
 const User = require('../models/User');
 
 exports.signup = (req, res, next) => {
+  //regex pour exiger un mot de passe fort d'au moins 8 caractères
   const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z0-9\d@$!%*?&]{8,}$/; 
   const password = req.body.password;
   const cryptedEmail = cryptojs.HmacSHA256(req.body.email, process.env.EMAIL_ENCRYPTION_KEY).toString();
@@ -40,6 +41,7 @@ exports.login = (req, res, next) => {
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
           }
           res.status(200).json({
+            //encodage et renvoi au frontend d'un nouveau token contenant le userId en tant que payload
             userId: user._id,
             token: jwt.sign(
               { userId: user._id },
