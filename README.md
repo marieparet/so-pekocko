@@ -21,7 +21,7 @@ npm install
 nodemon server
 ```
 
-Before accessing the app, you'll need to create a `.env` file in the root directory (`back` folder).</br>
+Before accessing the app, you'll need to create a `.env` file in the root directory (`back` folder).  
 Inside this new file, add environment-specific variables on new lines in the form of NAME=VALUE, as below :
 
 ```
@@ -30,6 +30,10 @@ DB_ADMIN_PASSWORD='your MongoDB password to access your cluster'
 ```
 
 Then open on any web browser : http://localhost:4200/
+
+## API documentation
+
+https://documenter.getpostman.com/view/13023621/TVYDcyHX
 
 ## What is this project ?
 
@@ -43,11 +47,11 @@ The frontend part was already developed, so I was in charge of developing the ba
 
 Building a REST API allowed me to apply my JavaScript knowledge to the backend development of an application, using Node.js, Express and MongoDB.
 
-I also learnt how to identify and apply basic security rules to the developpement of an application, in order to comply with the OWASP and RGPD standards.</br>
+I also learnt how to identify and apply basic security rules to the developpement of an application, in order to comply with the OWASP and RGPD standards.  
 In order to meet these requirements in terms of security, I used (among others) below packages :
-- <b>bcrypt</b>, in order to hash and salt a password
-- <b>jsonwebtoken</b>, in order to ensure secure authentification on all requests
-- <b>mongoose-unique-validator</b>, in order to ensure an email address' uniqueness and to return errors
-- <b>dotenv</b>, in order to store and secure database credentials
-- <b>crypto-js</b>, in order to protect users' email addresses, to comply with the RGPD rules
-- <b>express-mongo-sanitize</b>, in order to counter injection attacks, by validating the entries.
+- **bcrypt**, in order to hash and salt a password
+- **jsonwebtoken**, in order to ensure secure authentification on all requests
+- **mongoose-unique-validator**, in order to ensure an email address' uniqueness and to return errors
+- **dotenv**, in order to store and secure database credentials
+- **crypto-js**, in order to protect users' email addresses, to comply with the RGPD rules
+- **express-mongo-sanitize**, in order to counter injection attacks, by validating the entries.
