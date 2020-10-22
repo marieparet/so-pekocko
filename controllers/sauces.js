@@ -62,7 +62,7 @@ exports.likeOrDislikeSauce = (req, res, next) => {
       sauce.likeOrDislike(req.body.like, req.user._id)
       sauce.save()
       .then(() => res.status(201).json({message: 'Avis enregistrée !'}))
-
+      .catch(error => res.status(400).json({ error }));
       console.log(sauce.likes)
       console.log(sauce.usersLiked)
       console.log(sauce.dislikes)
