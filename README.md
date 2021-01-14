@@ -1,4 +1,4 @@
-# Build a secure API for a food review app
+# Building of a secure API for a food review app
 
 ## Getting started
 
